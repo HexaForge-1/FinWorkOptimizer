@@ -1,0 +1,16 @@
+/build/
+/CMakeFiles/
+CMakeCache.txt
+*.cmake
+*.exe
+*.out
+*.app
+.vscode/
+.idea/
+.DS_Store
+*.log
+*.db
+*.sqlite
+invoice_*.csv
+*_export.csv
+gl_export.csv

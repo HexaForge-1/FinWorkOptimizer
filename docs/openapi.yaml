@@ -1,0 +1,74 @@
+openapi: 3.0.3
+info: { title: FinWorkOptimizer REST API, version: 1.4.0 }
+servers: [ { url: http://localhost:8080 } ]
+components:
+  securitySchemes:
+    ApiKeyAuth: { type: apiKey, in: header, name: X-API-Key }
+security: [ { ApiKeyAuth: [] } ]
+paths:
+  /health: { get: { security: [], summary: Health, responses: { '200': { description: OK } } } }
+  /employees:
+    get: { summary: List employees, responses: { '200': { description: OK } } }
+    post:
+      summary: Create employee
+      requestBody: { required: true, content: { application/json: { schema: { type: object } } } }
+      responses: { '201': { description: Created } }
+  /timesheets:
+    get:
+      summary: List timesheets (filter by ?emp=)
+      parameters: [ { in: query, name: emp, schema: { type: string } } ]
+      responses: { '200': { description: OK } }
+    post:
+      summary: Create timesheet
+      requestBody: { required: true, content: { application/json: { schema: { type: object } } } }
+      responses: { '201': { description: Created } }
+  /timesheets/approve:
+    post:
+      summary: Approve a timesheet entry by emp/project/date
+      requestBody: { required: true, content: { application/json: { schema: { type: object } } } }
+      responses: { '200': { description: OK } }
+  /expenses:
+    post:
+      summary: Create expense
+      requestBody: { required: true, content: { application/json: { schema: { type: object } } } }
+      responses: { '201': { description: Created } }
+  /budget:
+    post:
+      summary: Set/Update budget for a category
+      requestBody: { required: true, content: { application/json: { schema: { type: object } } } }
+      responses: { '201': { description: Created } }
+  /budget/variance:
+    get:
+      summary: Get budget vs actuals by category
+      responses: { '200': { description: OK } }
+  /payroll:
+    get:
+      summary: Compute payroll
+      parameters: [ { in: query, name: id, required: true, schema: { type: string } } ]
+      responses: { '200': { description: OK } }
+  /invoice:
+    post:
+      summary: Generate invoice CSV
+      requestBody: { required: true, content: { application/json: { schema: { type: object } } } }
+      responses: { '201': { description: Created } }
+  /ar/export:
+    post:
+      summary: Export AR CSV
+      requestBody: { required: true, content: { application/json: { schema: { type: object } } } }
+      responses: { '201': { description: Created } }
+  /ap/export:
+    post:
+      summary: Export AP CSV
+      requestBody: { required: true, content: { application/json: { schema: { type: object } } } }
+      responses: { '201': { description: Created } }
+  /gl/export:
+    post:
+      summary: Export GL CSV
+      requestBody: { required: true, content: { application/json: { schema: { type: object } } } }
+      responses: { '201': { description: Created } }
+  /crm/customers:
+    get: { summary: List customers, responses: { '200': { description: OK } } }
+    post:
+      summary: Create/Upsert customer
+      requestBody: { required: true, content: { application/json: { schema: { type: object } } } }
+      responses: { '201': { description: Created } }
